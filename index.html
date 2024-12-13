@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Página Evoluída</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-900">
+    <header class="bg-purple-700 text-white py-4">
+        <nav class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold">Minha Página</a>
+            <ul class="flex space-x-6">
+                <li><a href="#home" class="hover:text-purple-300 transition">Home</a></li>
+                <li><a href="#sobre" class="hover:text-purple-300 transition">Sobre</a></li>
+                <li><a href="#contato" class="hover:text-purple-300 transition">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-6">
+        <!-- Home Section -->
+        <section id="home" class="mb-8">
+            <h2 class="text-3xl text-purple-700 font-semibold mb-4">Bem-vindo à Minha Página</h2>
+            <p class="text-lg text-gray-800 mb-6">Esta é uma página de exemplo com animações e interações. Explore e divirta-se!</p>
+
+            <!-- Image Slider -->
+            <div x-data="{ activeSlide: 0, slides: ['https://via.placeholder.com/800x400/ff6347/ffffff', 'https://via.placeholder.com/800x400/4682b4/ffffff', 'https://via.placeholder.com/800x400/32cd32/ffffff'] }">
+                <div class="relative">
+                    <div class="overflow-hidden rounded-lg">
+                        <template x-for="(slide, index) in slides" :key="index">
+                            <img :src="slide" :alt="'Slide ' + (index + 1)" class="w-full h-64 object-cover transition-all duration-500 ease-in-out" x-show="activeSlide === index" x-transition>
+                        </template>
+                    </div>
+                    <div class="absolute inset-y-0 left-0 flex items-center justify-between w-full p-2">
+                        <button @click="activeSlide = (activeSlide > 0) ? activeSlide - 1 : slides.length - 1" class="bg-purple-700 text-white p-2 rounded-full hover:bg-purple-600 transition">‹</button>
+                        <button @click="activeSlide = (activeSlide < slides.length - 1) ? activeSlide + 1 : 0" class="bg-purple-700 text-white p-2 rounded-full hover:bg-purple-600 transition">›</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre Section -->
+        <section id="sobre" class="mb-8">
+            <h2 class="text-2xl text-purple-700 font-semibold mb-4">Sobre</h2>
+            <p class="text-lg text-gray-800 mb-6">Aqui você encontrará informações sobre os serviços oferecidos e o objetivo desta página.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-purple-700">Serviço 1</h3>
+                    <p class="text-gray-700">Descrição do serviço 1...</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-purple-700">Serviço 2</h3>
+                    <p class="text-gray-700">Descrição do serviço 2...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contato Section -->
+        <section id="contato" class="mb-8">
+            <h2 class="text-2xl text-purple-700 font-semibold mb-4">Formulário de Contato</h2>
+            <form class="space-y-6">
+                <div>
+                    <label for="name" class="block text-lg font-semibold">Nome:</label>
+                    <input type="text" id="name" name="name" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition">
+                </div>
+                <div>
+                    <label for="email" class="block text-lg font-semibold">Email:</label>
+                    <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition">
+                </div>
+                <div>
+                    <label for="message" class="block text-lg font-semibold">Mensagem:</label>
+                    <textarea id="message" name="message" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3 bg-purple-700 text-white rounded-md hover:bg-purple-600 transition">Enviar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6">
+        <p class="text-center">&copy; 2024 Minha Página. Todos os direitos reservados.</p>
+        <div class="flex justify-center space-x-6 mt-4">
+            <a href="#" class="hover:text-purple-300 transition">Facebook</a>
+            <a href="#" class="hover:text-purple-300 transition">Twitter</a>
+            <a href="#" class="hover:text-purple-300 transition">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        // Adicionando animações de rolagem
+        document.addEventListener("DOMContentLoaded", function() {
+            const sections = document.querySelectorAll("section");
+            const options = {
+                threshold: 0.2
+            };
+
+            const observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("animate__fadeIn");
+                    }
+                });
+            }, options);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
+
